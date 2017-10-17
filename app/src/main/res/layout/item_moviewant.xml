@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/mv_icon"
+        android:layout_width="83dp"
+        android:layout_height="116dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/mv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorBig"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/mv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorMid" />
+
+    <TextView
+        android:id="@+id/mv_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_score"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorSmall"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/mv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_word"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorSmall"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/mv_del"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="12dp"
+        android:src="@drawable/menu_love" />
+
+</RelativeLayout>

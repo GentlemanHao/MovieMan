@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/rl_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.goldou.movie.view.LoadingView
+            android:id="@+id/loadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:loadingText="Do you have freestyle?" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/iv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="28dp"
+            android:layout_marginRight="28dp"
+            android:src="@drawable/icon_top"
+            app:elevation="6dp"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

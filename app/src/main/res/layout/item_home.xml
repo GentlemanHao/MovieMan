@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="90dp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_icon"
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+
+        <ImageView
+            android:id="@+id/mv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/mv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorMid"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/mv_maxicon"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="-6dp"
+        android:layout_marginTop="-3dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/mv_ddd"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-3dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/mv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_icon"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorBig"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/mv_ticket"
+        android:layout_width="45dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/mv_name"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_bg_red"
+        android:gravity="center"
+        android:text="购票"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/mv_presale"
+        android:layout_width="45dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/mv_name"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_bg_blue"
+        android:gravity="center"
+        android:text="预售"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+</RelativeLayout>

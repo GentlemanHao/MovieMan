@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/mv_icon"
+        android:layout_width="83dp"
+        android:layout_height="116dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/mv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorBig"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/mv_maxicon"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/mv_name"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/mv_ddd"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/mv_name"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/mv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorMid" />
+
+    <TextView
+        android:id="@+id/mv_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_score"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:textColor="@color/colorSmall"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/mv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mv_word"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/mv_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorSmall"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/mv_ticket"
+        android:layout_width="50dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_bg_red"
+        android:gravity="center"
+        android:text="购票"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/mv_presale"
+        android:layout_width="50dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_bg_blue"
+        android:gravity="center"
+        android:text="预售"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+
+</RelativeLayout>

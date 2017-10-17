@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_abc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBg"
+        android:padding="10dp"
+        android:textSize="15sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/city_bg_select">
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_tv_city"
+            android:padding="8dp"
+            android:textColor="@color/colorGray2" />
+
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_refresh" />
+
+    </RelativeLayout>
+
+</LinearLayout>

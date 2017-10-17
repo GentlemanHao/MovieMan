@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/cm_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBig"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/cm_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cm_name"
+        android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@id/cm_name"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cm_name"
+        android:layout_toRightOf="@id/cm_price"
+        android:text="元起"
+        android:textColor="@color/colorMid"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/cm_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cm_name"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/colorSmall"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/cm_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/cm_name"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorSmall"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/cm_site"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_below="@id/cm_address"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/text_bg_blue"
+        android:gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="座"
+        android:textColor="@color/colorBlue"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/cm_imax"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_below="@id/cm_address"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/cm_site"
+        android:background="@drawable/text_bg_blue"
+        android:gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="IMAX厅"
+        android:textColor="@color/colorBlue"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/cm_site"
+        android:layout_marginTop="12dp"
+        android:background="#ddd" />
+
+</RelativeLayout>

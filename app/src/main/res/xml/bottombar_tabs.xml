@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@mipmap/ic_home"
+        id="@+id/tab_home"
+        title="首页" />
+    <tab
+        icon="@mipmap/ic_movie"
+        id="@+id/tab_movie"
+        title="电影" />
+    <tab
+        icon="@mipmap/ic_cinema"
+        id="@+id/tab_cinema"
+        title="影院" />
+    <tab
+        icon="@mipmap/ic_me"
+        id="@+id/tab_me"
+        title="我的" />
+</tabs>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp">
+
+    <TextView
+        android:id="@+id/hl_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorBig"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/hl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hl_time"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorMid"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/hl_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/hl_time"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@id/hl_time"
+        android:textColor="@color/colorBig"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/hl_yuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/hl_time"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="130dp"
+        android:layout_marginTop="10dp"
+        android:text="影院价:70元"
+        android:textColor="@color/colorMid"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/hl_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/hl_type"
+        android:layout_alignLeft="@id/hl_yuan"
+        android:text="34"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/hl_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hl_time"
+        android:layout_marginLeft="26dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/hl_yuan"
+        android:layout_toRightOf="@id/hl_time"
+        android:textColor="@color/colorMid"
+        android:textSize="11sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/hl_price"
+        android:layout_toRightOf="@id/hl_price"
+        android:text="元"
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp" />
+
+
+    <Button
+        android:id="@+id/hl_buy"
+        android:layout_width="50dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_bg_white_red"
+        android:text="购票"
+        android:textColor="@color/colorPrimary"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/hl_stop"
+        android:layout_width="66dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_bg_white_gary"
+        android:text="停止售票"
+        android:textColor="@color/colorMid"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/hl_end"
+        android:background="#ddd" />
+
+</RelativeLayout>
