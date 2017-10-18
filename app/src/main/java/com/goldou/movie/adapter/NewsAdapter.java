@@ -18,11 +18,9 @@ import java.util.List;
  * Created by Administrator on 2017/9/29 0029.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter {
+public class NewsAdapter extends MyBaseAdapter {
     private List<NewsInfo.Data> list;
     private Context context;
-    private OnItemClickListener onItemClickListener;
-    private OnItemLongClickListener onItemLongClickListener;
 
     public NewsAdapter(Context context, List<NewsInfo.Data> list) {
         this.context = context;
@@ -47,7 +45,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         int layoutPosition = holder.getLayoutPosition();
-                        onItemClickListener.onItemClick(holder.itemView, layoutPosition);
+                        onItemClickListener.OnItemClick(holder.itemView, layoutPosition);
                     }
                 });
             }
@@ -56,7 +54,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
                     @Override
                     public boolean onLongClick(View v) {
                         int layoutPosition = holder.getLayoutPosition();
-                        onItemLongClickListener.onItemLongClick(holder.itemView, layoutPosition);
+                        onItemLongClickListener.OnItemLongClick(holder.itemView, layoutPosition);
                         return false;
                     }
                 });
@@ -81,21 +79,5 @@ public class NewsAdapter extends RecyclerView.Adapter {
             tv_from = (TextView) itemView.findViewById(R.id.news_from);
             tv_time = (TextView) itemView.findViewById(R.id.news_time);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int layoutPosition);
-    }
-
-    public interface OnItemLongClickListener {
-        void onItemLongClick(View itemView, int layoutPosition);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
-        this.onItemLongClickListener = onItemLongClickListener;
     }
 }

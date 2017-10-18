@@ -17,11 +17,10 @@ import java.util.ArrayList;
  * Created by Administrator on 2017/10/12 0012.
  */
 
-public class AppInfoAdapter extends RecyclerView.Adapter<AppInfoAdapter.ViewHolder> {
+public class AppInfoAdapter extends MyBaseAdapter {
 
     private Context context;
     private ArrayList<AppInfo> mAppList;
-    private OnItemClickListener mOnItemClickListener;
 
     public AppInfoAdapter(Context mContext, ArrayList<AppInfo> date) {
         this.mAppList = date;
@@ -35,32 +34,30 @@ public class AppInfoAdapter extends RecyclerView.Adapter<AppInfoAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int i) {
-        holder.tv.setText(mAppList.get(i).getAppName());
-        holder.img.setBackground(mAppList.get(i).getAppIcon());
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ViewHolder) {
+            ((ViewHolder) holder).tv.setText(mAppList.get(position).getAppName());
+            ((ViewHolder) holder).img.setBackground(mAppList.get(position).getAppIcon());
 
-        if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = holder.getLayoutPosition();
-                    mOnItemClickListener.onItemClick(holder.itemView, position);
-                }
-            });
+            if (onItemClickListener != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = holder.getLayoutPosition();
+                        onItemClickListener.OnItemClick(holder.itemView, position);
+                    }
+                });
 
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = holder.getLayoutPosition();
-                    mOnItemClickListener.onItemLongClick(holder.itemView, position);
-                    return false;
-                }
-            });
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        int position = holder.getLayoutPosition();
+                        onItemLongClickListener.OnItemLongClick(holder.itemView, position);
+                        return false;
+                    }
+                });
+            }
         }
-    }
-
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     @Override
@@ -68,13 +65,7 @@ public class AppInfoAdapter extends RecyclerView.Adapter<AppInfoAdapter.ViewHold
         return mAppList.size();
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-
-        void onItemLongClick(View view, int position);
-    }
-
-    static final class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv;
         ImageView img;
 

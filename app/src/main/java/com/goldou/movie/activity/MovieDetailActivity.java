@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.goldou.movie.R;
 import com.goldou.movie.adapter.AppInfoAdapter;
 import com.goldou.movie.adapter.CommentAdapter;
+import com.goldou.movie.adapter.MyBaseAdapter;
 import com.goldou.movie.adapter.StarsAdapter;
 import com.goldou.movie.bean.AppInfo;
 import com.goldou.movie.bean.MovieDetailInfo;
@@ -353,18 +354,19 @@ public class MovieDetailActivity extends AppCompatActivity {
         RecyclerView rl_share = (RecyclerView) shareDialog.findViewById(R.id.rl_share);
         rl_share.setLayoutManager(new GridLayoutManager(this, 3));
         rl_share.setAdapter(appInfoAdapter);
-        appInfoAdapter.setOnItemClickListener(new AppInfoAdapter.OnItemClickListener() {
+        appInfoAdapter.setOnItemClickListener(new MyBaseAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void OnItemClick(View itemView, int position) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setComponent(new ComponentName(appList.get(position).getPkgName(), appList.get(position).getLaunchClassName()));
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, "我在电影人看《" + tv_name.getText().toString() + "》的最新预告片、高清剧照，周边影院热映情况，快来加入我吧。");
                 startActivity(intent);
             }
-
+        });
+        appInfoAdapter.setOnItemLongClickListener(new MyBaseAdapter.OnItemLongClickListener() {
             @Override
-            public void onItemLongClick(View view, int position) {
+            public void OnItemLongClick(View itemView, int position) {
                 // 打开应用信息界面
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -372,10 +374,10 @@ public class MovieDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         ImageView iv_meizu = (ImageView) shareDialog.findViewById(R.id.iv_meizu);
         int[] meizus = {R.drawable.meizu_ep51, R.drawable.meizu_have};
         iv_meizu.setImageResource(meizus[new Random().nextInt(2)]);
         shareDialog.show();
     }
-
 }

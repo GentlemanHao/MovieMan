@@ -92,7 +92,7 @@ public class MovieWantActivity extends AppCompatActivity implements View.OnClick
         movieWantAdapter = new MovieWantAdapter(this, list);
         movieWantAdapter.setOnItemClickListener(new MovieWantAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClickListener(View itemView, int position) {
+            public void OnItemClick(View itemView, int position) {
                 Intent intent = new Intent(MovieWantActivity.this, MovieDetailActivity.class);
                 intent.putExtra("movieId", Integer.valueOf(String.valueOf(list.get(position - 1).getId())));
                 startActivity(intent);

@@ -269,16 +269,10 @@ public class HomeFragment extends BaseFragment {
 
             newsAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View itemView, int layoutPosition) {
+                public void OnItemClick(View itemView, int layoutPosition) {
                     Snackbar.make(rl_news, newsInfo.getData().get(layoutPosition).getArticle_title(), Snackbar.LENGTH_LONG).show();
                 }
             });
-            /*newsAdapter.setOnItemLongClickListener(new NewsAdapter.OnItemLongClickListener() {
-                @Override
-                public void onItemLongClick(View itemView, int layoutPosition) {
-                    Snackbar.make(rl_news, newsInfo.getData().get(layoutPosition).getArticle_from(), Snackbar.LENGTH_LONG).show();
-                }
-            });*/
 
             if (isShowEveryDay) {
                 isShowEveryDay = false;

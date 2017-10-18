@@ -19,11 +19,10 @@ import java.util.List;
  * Created by Administrator on 2017/10/17 0017.
  */
 
-public class MovieWantAdapter extends RecyclerView.Adapter {
+public class MovieWantAdapter extends MyBaseAdapter {
 
     private Context context;
     private List<MovieWant> list;
-    private OnItemClickListener onItemClickListener;
     private OnDeleteListener onDeleteListener;
 
     public MovieWantAdapter(Context context, List<MovieWant> list) {
@@ -50,7 +49,7 @@ public class MovieWantAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         int layoutPosition = holder.getLayoutPosition();
-                        onItemClickListener.OnItemClickListener(holder.itemView, layoutPosition);
+                        onItemClickListener.OnItemClick(holder.itemView, layoutPosition);
                     }
                 });
             }
@@ -85,14 +84,6 @@ public class MovieWantAdapter extends RecyclerView.Adapter {
             mv_word = (TextView) itemView.findViewById(R.id.mv_word);
             mv_star = (TextView) itemView.findViewById(R.id.mv_star);
         }
-    }
-
-    public interface OnItemClickListener {
-        void OnItemClickListener(View itemView, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
     }
 
     public interface OnDeleteListener {
