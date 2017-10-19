@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * 6.0 运行时权限处理工具类。
  */
-public class PermissionUtils {
+public class PermissionUtil {
 
     private static int mRequestCode = -1;
 

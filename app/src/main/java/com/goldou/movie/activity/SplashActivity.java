@@ -9,12 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.goldou.movie.R;
-import com.goldou.movie.utils.PermissionUtils;
-import com.goldou.movie.utils.PicassoUtil;
-import com.squareup.picasso.Picasso;
+import com.goldou.movie.utils.PermissionUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -36,10 +33,10 @@ public class SplashActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        PermissionUtils.requestPermissionsResult(this, 1, new String[]{
+        PermissionUtil.requestPermissionsResult(this, 1, new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtils.OnPermissionListener() {
+                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtil.OnPermissionListener() {
             @Override
             public void onPermissionGranted() {
                 handler.sendEmptyMessageDelayed(0, 2000);
@@ -47,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied() {
-                PermissionUtils.showTipsDialog(SplashActivity.this, "当前应用必要权限，请单击【去设置】按钮前往设置中心进行权限授权。");
+                PermissionUtil.showTipsDialog(SplashActivity.this, "当前应用必要权限，请单击【去设置】按钮前往设置中心进行权限授权。");
                 handler.sendEmptyMessageDelayed(0, 2000);
             }
         });
@@ -55,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

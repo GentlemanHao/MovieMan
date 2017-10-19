@@ -84,6 +84,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView rl_stars;
     private ImageView iv_play;
     private BottomSheetDialog shareDialog;
+    private ImageView iv_want;
+    private MovieWantDao movieWantDao;
+    private MovieDetailInfo.Data.MovieDetailModelBean model;
 
     private Handler handler = new Handler() {
         @Override
@@ -96,9 +99,6 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         }
     };
-    private ImageView iv_want;
-    private MovieWantDao movieWantDao;
-    private MovieDetailInfo.Data.MovieDetailModelBean model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
