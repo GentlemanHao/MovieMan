@@ -92,6 +92,7 @@ public class HomeFragment extends BaseFragment {
     private SwipeRefreshLayout srl_refresh;
     private EveryDayInfo everyDayInfo;
     private AlertDialog todayDialog;
+    private RelativeLayout rl_root;
 
     @Nullable
     @Override
@@ -102,6 +103,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView(View view) {
+        rl_root = (RelativeLayout) view.findViewById(R.id.rl_root);
         rl_movie = (RecyclerView) view.findViewById(R.id.rl_movie);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -160,8 +162,9 @@ public class HomeFragment extends BaseFragment {
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY < 0)
+                if (scrollY < 0) {
                     return;
+                }
                 if (scrollY <= height) {
                     float scale = (float) scrollY / height;
                     float alpha = (255 * scale);
