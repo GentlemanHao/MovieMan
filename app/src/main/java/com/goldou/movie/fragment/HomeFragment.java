@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +25,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -93,6 +98,10 @@ public class HomeFragment extends BaseFragment {
     private EveryDayInfo everyDayInfo;
     private AlertDialog todayDialog;
     private RelativeLayout rl_root;
+    private RotateAnimation rotateAnimation;
+    private ImageView iv_play;
+    private ImageView iv_sing;
+    private MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
@@ -317,6 +326,25 @@ public class HomeFragment extends BaseFragment {
         tv_chinese.setText("      " + everyDayInfo.getNote());
         tv_english.setText("      " + everyDayInfo.getContent());
 
+        iv_play = (ImageView) dialogView.findViewById(R.id.iv_play);
+        iv_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playVoice();
+            }
+        });
+        iv_sing = (ImageView) dialogView.findViewById(R.id.iv_sing);
+        iv_sing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playVoice();
+            }
+        });
+        rotateAnimation = new RotateAnimation(0, 3600, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(12000);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setRepeatCount(-1);
+
         builder.setView(dialogView);
         todayDialog = builder.create();
         todayDialog.setCancelable(false);
@@ -327,6 +355,41 @@ public class HomeFragment extends BaseFragment {
                 todayDialog.dismiss();
             }
         });
+    }
+
+    public void playVoice() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            iv_play.setVisibility(View.VISIBLE);
+            iv_sing.clearAnimation();
+            iv_sing.setVisibility(View.GONE);
+        } else {
+            try {
+                mediaPlayer = new MediaPlayer();
+                mediaPlayer.setDataSource(getContext(), Uri.parse(everyDayInfo.getTts()));
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.prepareAsync();
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        iv_play.setVisibility(View.GONE);
+                        iv_sing.setVisibility(View.VISIBLE);
+                        iv_sing.startAnimation(rotateAnimation);
+                        mediaPlayer.start();
+                    }
+                });
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        iv_play.setVisibility(View.VISIBLE);
+                        iv_sing.clearAnimation();
+                        iv_sing.setVisibility(View.GONE);
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class TitleAdapter extends PagerAdapter {

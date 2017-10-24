@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="32432432432432432432423"
+            android:lineSpacingMultiplier="1.1"
             android:textColor="@color/colorBig"
             android:textSize="16sp" />
 
@@ -44,9 +44,30 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:text="32432432432432432432423"
+            android:lineSpacingMultiplier="1.1"
             android:textColor="@color/colorBig"
             android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/tv_chinese"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:padding="5dp"
+            android:src="@drawable/icon_say" />
+
+        <ImageView
+            android:id="@+id/iv_sing"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/tv_chinese"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:padding="5dp"
+            android:src="@drawable/icon_sing"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
