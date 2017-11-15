@@ -16,6 +16,9 @@ public class MovieApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(context);
+        Thread.setDefaultUncaughtExceptionHandler(crashHandler);
     }
 
     public static Context getContext() {

@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.goldou.movie.R;
 import com.goldou.movie.activity.CityActivity;
@@ -102,6 +103,7 @@ public class HomeFragment extends BaseFragment {
     private ImageView iv_play;
     private ImageView iv_sing;
     private MediaPlayer mediaPlayer;
+    private ViewFlipper viewFlipper;
 
     @Nullable
     @Override
@@ -189,7 +191,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 MainActivity activity = (MainActivity) getActivity();
-                activity.setBottomBarSelection(R.id.tab_movie);
+                activity.setBottomBarSelection(1);
             }
         });
 
@@ -223,6 +225,8 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+        viewFlipper = (ViewFlipper) view.findViewById(R.id.vf_view);
+
         initData();
     }
 
@@ -238,6 +242,7 @@ public class HomeFragment extends BaseFragment {
             vp_home.setCurrentItem(vp_home.getCurrentItem() + 1);
             handler.postDelayed(this, 6000);
         }
+
     }
 
     private void initData() {
@@ -286,11 +291,28 @@ public class HomeFragment extends BaseFragment {
                 }
             });
 
+            initAd();
+
             if (isShowEveryDay) {
                 isShowEveryDay = false;
                 getEveryDayEnglish();
             }
         }
+    }
+
+    private void initAd() {
+        View viewAd1 = View.inflate(getActivity(), R.layout.view_flipper, null);
+        ImageView imageView1 = (ImageView) viewAd1.findViewById(R.id.iv_icon);
+        TextView textView1 = (TextView) viewAd1.findViewById(R.id.tv_message);
+        imageView1.setImageResource(R.drawable.icon_newad);
+        textView1.setText("\"变形金刚\"系列外传电影\"大黄蜂\"正式杀青");
+        viewFlipper.addView(viewAd1);
+        View viewAd2 = View.inflate(getActivity(), R.layout.view_flipper, null);
+        ImageView imageView2 = (ImageView) viewAd2.findViewById(R.id.iv_icon);
+        TextView textView2 = (TextView) viewAd2.findViewById(R.id.tv_message);
+        imageView2.setImageResource(R.drawable.icon_head);
+        textView2.setText("《羞羞的铁拳》破20亿 田雨爆笑演绎“千人一面”");
+        viewFlipper.addView(viewAd2);
     }
 
     private void getEveryDayEnglish() {

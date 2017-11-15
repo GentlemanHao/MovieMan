@@ -3,13 +3,13 @@ apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.goldou.movie"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.05"
+        versionCode 6
+        versionName "1.06"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

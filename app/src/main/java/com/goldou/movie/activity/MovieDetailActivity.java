@@ -315,6 +315,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void addToWantMovie() {
+        if (model == null || movieWantDao == null) {
+            return;
+        }
         if (isWant) {
             movieWantDao.deleteByKey(Long.valueOf(model.getId()));
         } else {

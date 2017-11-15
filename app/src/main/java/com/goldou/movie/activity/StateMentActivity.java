@@ -23,7 +23,7 @@ public class StateMentActivity extends AppCompatActivity {
             }
         });
         TextView textView = (TextView) findViewById(R.id.tv_statement);
-        textView.setText("   该APP为作者根据个人爱好开发，仅供交流学习，APP中所有接口均来自网络，如果侵犯了您的权益，" +
+        textView.setText("   该APP为作者根据个人爱好开发，仅供交流学习，APP中所有接口及图片等资源均来自网络，如果侵犯了您的权益，" +
                 "请联系作者删除，1136202398@qq.com，谢谢。");
     }
 }

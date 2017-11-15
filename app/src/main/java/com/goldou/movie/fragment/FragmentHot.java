@@ -139,7 +139,7 @@ public class FragmentHot extends BaseFragment {
                         iv_top.hide();
                     } else {
                         iv_top.show();
-                        handler.sendEmptyMessageDelayed(3, 5000);
+                        handler.sendEmptyMessageDelayed(3, 8000);
                     }
                 } else {
                     iv_top.hide();

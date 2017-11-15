@@ -113,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void setBottomBarSelection(int tabId) {
         bottomBar.selectTabAtPosition(tabId);
-        if (tabId == 1) {
-            movieFragment.refreshHotMovie();
-        }
     }
 
     public void getLocation() {

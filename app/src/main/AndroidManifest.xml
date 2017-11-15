@@ -55,7 +55,7 @@
         <activity android:name=".activity.CityActivity" />
         <activity android:name=".activity.ChoseSeatActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.MovieWantActivity"></activity>
+        <activity android:name=".activity.MovieWantActivity" />
     </application>
 
 </manifest>
