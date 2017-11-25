@@ -18,9 +18,11 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -92,6 +94,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
+    private LinearLayoutManager layoutManager;
+    private LinearLayout ll_menu;
 
     @Nullable
     @Override
@@ -104,11 +108,15 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
 
         rl_cinema = (XRecyclerView) view.findViewById(R.id.rl_cinema);
-        rl_cinema.setLayoutManager(new LinearLayoutManager(getContext()));
+        layoutManager = new LinearLayoutManager(getContext());
+        rl_cinema.setLayoutManager(layoutManager);
         rl_cinema.setRefreshProgressStyle(ProgressStyle.SysProgress);
         rl_cinema.setLoadingMoreProgressStyle(ProgressStyle.SysProgress);
         rl_cinema.setArrowImageView(R.drawable.iconfont_downgrey);
         rl_cinema.setLoadingMoreEnabled(false);
+
+        ll_menu = (LinearLayout) view.findViewById(R.id.ll_menu);
+        ll_menu.setVisibility(View.GONE);
 
         initHeader();
 
@@ -128,6 +136,14 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
+                int position = layoutManager.findFirstVisibleItemPosition();
+                if (position <= 1) {
+                    ll_menu.setVisibility(View.GONE);
+                } else {
+                    ll_menu.setVisibility(View.VISIBLE);
+                }
+
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     rl_location.setVisibility(View.VISIBLE);
                 } else {
