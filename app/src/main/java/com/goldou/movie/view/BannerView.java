@@ -34,7 +34,7 @@ public class BannerView {
     private int switchTime = 6000;
     private int scrollTime = 500;
     private int pointWidth = 7;
-    private int pointDistance = 5;
+    private int pointDistance = 4;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override

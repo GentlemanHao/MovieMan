@@ -14,8 +14,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -27,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -56,8 +53,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static com.goldou.movie.global.MovieApplication.dip2px;
-
 /**
  * Created by Administrator on 2017/7/28 0028.
  */
@@ -76,6 +71,19 @@ public class HomeFragment extends BaseFragment {
     private HomeAdapter movieAdapter;
     private NewsAdapter newsAdapter;
     private RecyclerView rl_movie;
+    private LinearLayout ll_nomore;
+    private SwipeRefreshLayout srl_refresh;
+    private EveryDayInfo everyDayInfo;
+    private AlertDialog todayDialog;
+    private RelativeLayout rl_root;
+    private RotateAnimation rotateAnimation;
+    private ImageView iv_play;
+    private ImageView iv_sing;
+    private MediaPlayer mediaPlayer;
+    private ViewFlipper viewFlipper;
+    private RelativeLayout rl_banner;
+    private BannerView bannerView;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -93,18 +101,6 @@ public class HomeFragment extends BaseFragment {
             }
         }
     };
-    private LinearLayout ll_nomore;
-    private SwipeRefreshLayout srl_refresh;
-    private EveryDayInfo everyDayInfo;
-    private AlertDialog todayDialog;
-    private RelativeLayout rl_root;
-    private RotateAnimation rotateAnimation;
-    private ImageView iv_play;
-    private ImageView iv_sing;
-    private MediaPlayer mediaPlayer;
-    private ViewFlipper viewFlipper;
-    private RelativeLayout rl_banner;
-    private BannerView bannerView;
 
     @Nullable
     @Override
