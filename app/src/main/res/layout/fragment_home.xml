@@ -20,26 +20,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/vp_home"
+                <RelativeLayout
+                    android:id="@+id/rl_banner"
                     android:layout_width="match_parent"
                     android:layout_height="168dp" />
-
-                <LinearLayout
-                    android:id="@+id/ll_point"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/vp_home"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
-                    android:orientation="horizontal" />
 
                 <RelativeLayout
                     android:id="@+id/rl_hot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/vp_home"
+                    android:layout_below="@id/rl_banner"
                     android:background="#ffffff">
 
                     <TextView

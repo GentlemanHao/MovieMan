@@ -95,7 +95,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         }
     };
     private LinearLayoutManager layoutManager;
-    private LinearLayout ll_menu;
 
     @Nullable
     @Override
@@ -115,9 +114,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         rl_cinema.setArrowImageView(R.drawable.iconfont_downgrey);
         rl_cinema.setLoadingMoreEnabled(false);
 
-        ll_menu = (LinearLayout) view.findViewById(R.id.ll_menu);
-        ll_menu.setVisibility(View.GONE);
-
         initHeader();
 
         rl_cinema.setLoadingListener(new XRecyclerView.LoadingListener() {
@@ -136,13 +132,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                int position = layoutManager.findFirstVisibleItemPosition();
-                if (position <= 1) {
-                    ll_menu.setVisibility(View.GONE);
-                } else {
-                    ll_menu.setVisibility(View.VISIBLE);
-                }
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     rl_location.setVisibility(View.VISIBLE);

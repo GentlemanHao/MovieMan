@@ -12,10 +12,11 @@
         <item name="android:textSize">10dp</item>
     </style>
 
-    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingbar_bg</item>
-        <item name="android:minHeight">16dp</item>
-        <item name="android:maxHeight">16dp</item>
+    <style name="RatingBar_CustomColor" parent="@android:style/Widget.Holo.RatingBar.Indicator">
+        <!--Background Color-->
+        <item name="colorControlNormal">@color/colorBg2</item>
+        <!--Progress Color-->
+        <item name="colorControlActivated">@color/colorYellow</item>
     </style>
 
     <style name="custom_dialog" parent="@android:style/Theme.Dialog">

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -44,6 +45,7 @@ import com.goldou.movie.bean.NewsInfo;
 import com.goldou.movie.utils.OkHttpUtil;
 import com.goldou.movie.utils.PicassoUtil;
 import com.goldou.movie.utils.SpUtil;
+import com.goldou.movie.view.BannerView;
 import com.goldou.movie.view.LoadingView;
 import com.google.gson.Gson;
 
@@ -64,14 +66,11 @@ public class HomeFragment extends BaseFragment {
 
     private MovieInfo movieInfo;
     private int[] imageList;
-    private ViewPager vp_home;
     private int height;
     private RelativeLayout rl_search;
     private MainActivity mainActivity;
     private TextView tv_city;
     private LoadingView loadingView;
-    private LinearLayout ll_point;
-    private int pointPosition;
     private RecyclerView rl_news;
     private NewsInfo newsInfo;
     private HomeAdapter movieAdapter;
@@ -104,6 +103,8 @@ public class HomeFragment extends BaseFragment {
     private ImageView iv_sing;
     private MediaPlayer mediaPlayer;
     private ViewFlipper viewFlipper;
+    private RelativeLayout rl_banner;
+    private BannerView bannerView;
 
     @Nullable
     @Override
@@ -124,52 +125,15 @@ public class HomeFragment extends BaseFragment {
         tv_hotMovie.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
         imageList = new int[]{R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5, R.drawable.banner6};
-
-        vp_home = (ViewPager) view.findViewById(R.id.vp_home);
-        vp_home.setAdapter(new TitleAdapter());
-
-        ll_point = (LinearLayout) view.findViewById(R.id.ll_point);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dip2px(11), dip2px(11));
-        for (int i = 0; i < imageList.length; i++) {
-            ImageView point = new ImageView(getActivity());
-            if (i == 0) {
-                point.setImageResource(R.drawable.point_select);
-            } else {
-                point.setImageResource(R.drawable.point_normal);
-                params.leftMargin = dip2px(3);
-            }
-            point.setLayoutParams(params);
-            ll_point.addView(point);
-        }
-
-        vp_home.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                position = position % imageList.length;
-                ImageView point = (ImageView) ll_point.getChildAt(position);
-                point.setImageResource(R.drawable.point_select);
-                ImageView prePoint = (ImageView) ll_point.getChildAt(pointPosition);
-                prePoint.setImageResource(R.drawable.point_normal);
-                pointPosition = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        new TitleTask().start();
+        rl_banner = (RelativeLayout) view.findViewById(R.id.rl_banner);
+        bannerView = new BannerView(getActivity(), imageList);
+        rl_banner.addView(bannerView.getBannerView());
+        bannerView.start();
 
         rl_search = (RelativeLayout) view.findViewById(R.id.rl_searchBar);
         NestedScrollView scrollView = (NestedScrollView) view.findViewById(R.id.os_scrollView);
         rl_search.setBackgroundColor(Color.argb(0, 220, 14, 60));
-        height = vp_home.getLayoutParams().height;
+        height = rl_banner.getLayoutParams().height;
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -228,21 +192,6 @@ public class HomeFragment extends BaseFragment {
         viewFlipper = (ViewFlipper) view.findViewById(R.id.vf_view);
 
         initData();
-    }
-
-    class TitleTask implements Runnable {
-
-        public void start() {
-            handler.removeCallbacksAndMessages(null);
-            handler.postDelayed(this, 6000);
-        }
-
-        @Override
-        public void run() {
-            vp_home.setCurrentItem(vp_home.getCurrentItem() + 1);
-            handler.postDelayed(this, 6000);
-        }
-
     }
 
     private void initData() {
@@ -414,34 +363,6 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    class TitleAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return Integer.MAX_VALUE;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            position = position % imageList.length;
-            ImageView imageView = new ImageView(getContext());
-            imageView.setImageResource(imageList[position]);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            container.addView(imageView);
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-    }
-
     public BroadcastReceiver locationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -463,5 +384,6 @@ public class HomeFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         mainActivity.unregisterReceiver(locationReceiver);
+        bannerView.stop();
     }
 }
