@@ -33,6 +33,10 @@ public class MovieAdapter extends RecyclerView.Adapter {
         this.list = list;
     }
 
+    public List<MovieInfo.Data.Movies> getMovieList() {
+        return list;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);

@@ -18,17 +18,14 @@ import com.goldou.movie.R;
 import com.goldou.movie.activity.TodayMarketActivity;
 import com.goldou.movie.adapter.MovieAdapter;
 import com.goldou.movie.bean.MovieInfo;
-import com.goldou.movie.utils.OkHttpUtil;
+import com.goldou.movie.utils.RetrofitUtil;
 import com.goldou.movie.view.LoadingView;
-import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/7/31 0031.
@@ -37,41 +34,24 @@ import okhttp3.Response;
 public class FragmentHot extends BaseFragment {
 
     private XRecyclerView rl_movie;
-    private int offset;
+    private int offset = 0;
     private int limit = 10;
-    private MovieInfo movieInfo;
     private MovieAdapter movieAdapter;
-    private MovieInfo newMovieInfo;
     private LoadingView loadingView;
+    private LinearLayoutManager layoutManager;
+    private FloatingActionButton iv_top;
+    private int lastPosition;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 0:
-
-                    break;
-                case 1:
-                    loadingView.setVisibility(View.GONE);
-                    movieAdapter = new MovieAdapter(getContext(), movieInfo.getData().getMovies());
-                    rl_movie.setAdapter(movieAdapter);
-                    rl_movie.refreshComplete();
-                    rl_movie.setLoadingMoreEnabled(movieInfo.getData().isHasNext());
-                    break;
-                case 2:
-                    movieAdapter.notifyDataSetChanged();
-                    rl_movie.loadMoreComplete();
-                    rl_movie.setLoadingMoreEnabled(newMovieInfo.getData().isHasNext());
-                    break;
                 case 3:
                     iv_top.hide();
                     break;
             }
         }
     };
-    private LinearLayoutManager layoutManager;
-    private FloatingActionButton iv_top;
-    private int lastPosition;
 
     @Nullable
     @Override
@@ -100,11 +80,7 @@ public class FragmentHot extends BaseFragment {
         rl_movie.setArrowImageView(R.drawable.iconfont_downgrey);
 
         View header = View.inflate(getContext(), R.layout.movie_header, null);
-        TextView tv_tickethouse = (TextView) header.findViewById(R.id.tv_tickethouse);
-        TextView tv_todaybigpan = (TextView) header.findViewById(R.id.tv_todaybigpan);
         TextView tv_bigpan = (TextView) header.findViewById(R.id.tv_bigpan);
-        tv_tickethouse.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        tv_todaybigpan.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         tv_bigpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,38 +125,36 @@ public class FragmentHot extends BaseFragment {
         });
         iv_top.hide();
 
-        rl_movie.refresh();
+        initData();
     }
 
     private void initData() {
-        OkHttpUtil.doGet("http://m.maoyan.com/movie/list.json?type=hot&offset=" + offset + "&limit=" + limit, new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                handler.sendEmptyMessage(0);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    if (offset == 0) {
-                        movieInfo = gson.fromJson(response.body().string(), MovieInfo.class);
-                        if (movieInfo.getStatus() == 0) {
-                            handler.sendEmptyMessage(1);
-                        }
-                    } else {
-                        newMovieInfo = gson.fromJson(response.body().string(), MovieInfo.class);
-                        if (newMovieInfo.getStatus() == 0) {
-                            if (newMovieInfo.getData().getMovies().size() > 0) {
-                                movieInfo.getData().getMovies().addAll(newMovieInfo.getData().getMovies());
-                                handler.sendEmptyMessage(2);
+        RetrofitUtil.getInstance().getApiService().getMovie("hot", offset, limit)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieInfo>() {
+                    @Override
+                    public void accept(MovieInfo movieInfo) throws Exception {
+                        if (offset == 0) {
+                            if (movieInfo.getStatus() == 0) {
+                                loadingView.setVisibility(View.GONE);
+                                movieAdapter = new MovieAdapter(getContext(), movieInfo.getData().getMovies());
+                                rl_movie.setAdapter(movieAdapter);
+                                rl_movie.refreshComplete();
+                                rl_movie.setLoadingMoreEnabled(movieInfo.getData().isHasNext());
+                            }
+                        } else {
+                            if (movieInfo.getStatus() == 0) {
+                                if (movieInfo.getData().getMovies().size() > 0) {
+                                    movieAdapter.getMovieList().addAll(movieInfo.getData().getMovies());
+                                    movieAdapter.notifyDataSetChanged();
+                                    rl_movie.loadMoreComplete();
+                                    rl_movie.setLoadingMoreEnabled(movieInfo.getData().isHasNext());
+                                }
                             }
                         }
                     }
-                }
-            }
-        });
+                });
     }
 
     public void refreshMovie() {

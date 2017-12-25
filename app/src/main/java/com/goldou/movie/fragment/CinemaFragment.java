@@ -18,11 +18,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -77,6 +75,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     private TextView tv_location;
     private MainActivity mainActivity;
     private TextView tv_city;
+    private LinearLayoutManager layoutManager;
+    private View headerView;
 
     private Handler handler = new Handler() {
 
@@ -94,7 +94,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
-    private LinearLayoutManager layoutManager;
 
     @Nullable
     @Override
@@ -152,7 +151,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         });
         tv_city.setText(SpUtil.getString(getContext(), "CITY", ""));
         mainActivity = (MainActivity) getActivity();
-        registerBoradcastReceiver();
+        registerBroadcastReceiver();
 
         rl_location = (RelativeLayout) view.findViewById(R.id.rl_location);
         rl_location.setOnClickListener(new View.OnClickListener() {
@@ -169,23 +168,23 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initHeader() {
-        View header = View.inflate(getContext(), R.layout.cinema_header, null);
-        rl_cinema.addHeaderView(header);
+        headerView = View.inflate(getContext(), R.layout.cinema_header, null);
+        rl_cinema.addHeaderView(headerView);
 
-        rl_region = (RelativeLayout) header.findViewById(R.id.rl_region);
-        rl_most = (RelativeLayout) header.findViewById(R.id.rl_most);
-        rl_brand = (RelativeLayout) header.findViewById(R.id.rl_brand);
-        rl_server = (RelativeLayout) header.findViewById(R.id.rl_server);
+        rl_region = (RelativeLayout) headerView.findViewById(R.id.rl_region);
+        rl_most = (RelativeLayout) headerView.findViewById(R.id.rl_most);
+        rl_brand = (RelativeLayout) headerView.findViewById(R.id.rl_brand);
+        rl_server = (RelativeLayout) headerView.findViewById(R.id.rl_server);
 
-        tv_select_region = (TextView) header.findViewById(R.id.tv_select_region);
-        tv_select_most = (TextView) header.findViewById(R.id.tv_select_most);
-        tv_select_brand = (TextView) header.findViewById(R.id.tv_select_brand);
-        tv_select_server = (TextView) header.findViewById(R.id.tv_select_server);
+        tv_select_region = (TextView) headerView.findViewById(R.id.tv_select_region);
+        tv_select_most = (TextView) headerView.findViewById(R.id.tv_select_most);
+        tv_select_brand = (TextView) headerView.findViewById(R.id.tv_select_brand);
+        tv_select_server = (TextView) headerView.findViewById(R.id.tv_select_server);
 
-        iv_select_region = (ImageView) header.findViewById(R.id.iv_select_region);
-        iv_select_most = (ImageView) header.findViewById(R.id.iv_select_most);
-        iv_select_brand = (ImageView) header.findViewById(R.id.iv_select_brand);
-        iv_select_server = (ImageView) header.findViewById(R.id.iv_select_server);
+        iv_select_region = (ImageView) headerView.findViewById(R.id.iv_select_region);
+        iv_select_most = (ImageView) headerView.findViewById(R.id.iv_select_most);
+        iv_select_brand = (ImageView) headerView.findViewById(R.id.iv_select_brand);
+        iv_select_server = (ImageView) headerView.findViewById(R.id.iv_select_server);
 
         rl_region.setOnClickListener(this);
         rl_most.setOnClickListener(this);
@@ -324,18 +323,8 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
-        View v_out = popupView.findViewById(R.id.v_out);
-        v_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (popupWindow != null)
-                    popupWindow.dismiss();
-            }
-        });
-
         popupWindow = new PopupWindow(popupView, ViewPager.LayoutParams.MATCH_PARENT, ViewPager.LayoutParams.MATCH_PARENT);
-        popupWindow.showAsDropDown(rl_region);
+        popupWindow.showAsDropDown(headerView);
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(false);
 
@@ -346,7 +335,6 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorSmall));
             }
         });
-
     }
 
     private void showSelectCinemaList(String region) {
@@ -427,7 +415,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
         }
     };
 
-    public void registerBoradcastReceiver() {
+    public void registerBroadcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction("com.goldou.location");
         mainActivity.registerReceiver(locationReceiver, myIntentFilter);

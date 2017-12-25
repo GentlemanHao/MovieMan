@@ -41,6 +41,7 @@ import com.goldou.movie.bean.MovieInfo;
 import com.goldou.movie.bean.NewsInfo;
 import com.goldou.movie.utils.OkHttpUtil;
 import com.goldou.movie.utils.PicassoUtil;
+import com.goldou.movie.utils.RetrofitUtil;
 import com.goldou.movie.utils.SpUtil;
 import com.goldou.movie.view.BannerView;
 import com.goldou.movie.view.LoadingView;
@@ -49,6 +50,9 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.Scanner;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -59,7 +63,6 @@ import okhttp3.Response;
 
 public class HomeFragment extends BaseFragment {
 
-    private MovieInfo movieInfo;
     private int[] imageList;
     private int height;
     private RelativeLayout rl_search;
@@ -75,7 +78,6 @@ public class HomeFragment extends BaseFragment {
     private SwipeRefreshLayout srl_refresh;
     private EveryDayInfo everyDayInfo;
     private AlertDialog todayDialog;
-    private RelativeLayout rl_root;
     private RotateAnimation rotateAnimation;
     private ImageView iv_play;
     private ImageView iv_sing;
@@ -89,11 +91,7 @@ public class HomeFragment extends BaseFragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    loadingView.setVisibility(View.GONE);
-                    movieAdapter = new HomeAdapter(getContext(), movieInfo.getData().getMovies());
-                    rl_movie.setAdapter(movieAdapter);
-                    srl_refresh.setRefreshing(false);
-                    initNews();
+
                     break;
                 case 2:
                     showEveryDayInfo();
@@ -111,7 +109,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView(View view) {
-        rl_root = (RelativeLayout) view.findViewById(R.id.rl_root);
         rl_movie = (RecyclerView) view.findViewById(R.id.rl_movie);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -191,24 +188,21 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initData() {
-        OkHttpUtil.doGet("http://m.maoyan.com/movie/list.json?type=hot&offset=" + 0 + "&limit=" + 12, new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                handler.sendEmptyMessage(0);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    movieInfo = gson.fromJson(response.body().string(), MovieInfo.class);
-                    if (movieInfo.getStatus() == 0) {
-                        handler.sendEmptyMessageDelayed(1, 2000);
+        RetrofitUtil.getInstance().getApiService().getMovie("hot", 0, 12)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieInfo>() {
+                    @Override
+                    public void accept(MovieInfo movieInfo) throws Exception {
+                        if (movieInfo.getStatus() == 0) {
+                            loadingView.setVisibility(View.GONE);
+                            movieAdapter = new HomeAdapter(getContext(), movieInfo.getData().getMovies());
+                            rl_movie.setAdapter(movieAdapter);
+                            srl_refresh.setRefreshing(false);
+                            initNews();
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     private boolean isShowEveryDay = true;

@@ -30,7 +30,8 @@
             android:layout_toRightOf="@id/iv_th"
             android:text="实时票房"
             android:textColor="#2c2c2c"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_bigpan"
@@ -51,7 +52,8 @@
             android:layout_toLeftOf="@id/tv_bigpan"
             android:text="今日大盘"
             android:textColor="#2c2c2c"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.goldou.movie.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -32,7 +33,7 @@ public class BannerView {
     private ViewPager viewPager;
     private View move_point;
     private int switchTime = 6000;
-    private int scrollTime = 500;
+    private int scrollTime = 600;
     private int pointWidth = 7;
     private int pointDistance = 4;
 
@@ -53,20 +54,22 @@ public class BannerView {
         initView();
     }
 
+    @SuppressLint("InflateParams")
     private void initView() {
         bannerView = LayoutInflater.from(context).inflate(R.layout.bannerview, null);
         ll_point = (LinearLayout) bannerView.findViewById(R.id.ll_point);
         viewPager = (ViewPager) bannerView.findViewById(R.id.viewpager);
         move_point = bannerView.findViewById(R.id.move_point);
-        viewPager.setAdapter(new TitleAdapter());
+        viewPager.setAdapter(new BannerAdapter());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) move_point.getLayoutParams();
-                //取余，不然会一直往右移动
                 position = position % images.length;
                 params.leftMargin = (int) (dip2px(pointWidth + pointDistance) * position + dip2px(pointWidth + pointDistance) * positionOffset);
                 move_point.setLayoutParams(params);
+                System.out.println("position：" + position);
+                System.out.println("--------positionOffset：" + positionOffset);
             }
 
             @Override
@@ -115,23 +118,18 @@ public class BannerView {
         try {
             Field field = ViewPager.class.getDeclaredField("mScroller");
             field.setAccessible(true);
-            field.set(viewPager, getScroller(scrollTime));
+            field.set(viewPager, new Scroller(context, new AccelerateInterpolator()) {
+                @Override
+                public void startScroll(int startX, int startY, int dx, int dy, int duration) {
+                    super.startScroll(startX, startY, dx, dy, scrollTime);
+                }
+            });
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
 
-    private Scroller getScroller(final int smoothDuration) {
-        Scroller scroller = new Scroller(context, new AccelerateInterpolator()) {
-            @Override
-            public void startScroll(int startX, int startY, int dx, int dy, int duration) {
-                super.startScroll(startX, startY, dx, dy, smoothDuration);
-            }
-        };
-        return scroller;
-    }
-
-    class TitleAdapter extends PagerAdapter {
+    private class BannerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
