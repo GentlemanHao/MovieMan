@@ -39,6 +39,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Call;
@@ -247,15 +248,7 @@ public class CinemaFragment extends Fragment implements View.OnClickListener {
                 Location.distanceBetween(latme, longme, lat, lng, results);
                 allCinemaInfo.getData().get(i).setDistance(Math.round(results[0]));
             }
-            /*for (int i = 0; i < allCinemaInfo.getData().size() - 1; i++) {
-                for (int j = 0; j < allCinemaInfo.getData().size() - 1 - i; j++) {
-                    if (allCinemaInfo.getData().get(j).getDistance() > allCinemaInfo.getData().get(j + 1).getDistance()) {
-                        CinemaInfo.Data temp = allCinemaInfo.getData().get(j);
-                        allCinemaInfo.getData().add(j, allCinemaInfo.getData().get(j + 1));
-                        allCinemaInfo.getData().add(j + 1, temp);
-                    }
-                }
-            }*/
+            Collections.sort(allCinemaInfo.getData());
         }
     }
 

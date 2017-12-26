@@ -9,7 +9,7 @@ import android.widget.ScrollView;
  */
 
 public class ObservableScrollView extends ScrollView {
-    private OnScollChangedListener onScollChangedListener = null;
+    private OnScrollChangedListener onScrollChangedListener = null;
 
     public ObservableScrollView(Context context) {
         super(context);
@@ -23,19 +23,19 @@ public class ObservableScrollView extends ScrollView {
         super(context, attrs);
     }
 
-    public void setOnScollChangedListener(OnScollChangedListener onScollChangedListener) {
-        this.onScollChangedListener = onScollChangedListener;
+    public void setOnScrollChangedListener(OnScrollChangedListener onScrollChangedListener) {
+        this.onScrollChangedListener = onScrollChangedListener;
     }
 
     @Override
     protected void onScrollChanged(int x, int y, int oldx, int oldy) {
         super.onScrollChanged(x, y, oldx, oldy);
-        if (onScollChangedListener != null) {
-            onScollChangedListener.onScrollChanged(this, x, y, oldx, oldy);
+        if (onScrollChangedListener != null) {
+            onScrollChangedListener.onScrollChanged(this, x, y, oldx, oldy);
         }
     }
 
-    public interface OnScollChangedListener {
+    public interface OnScrollChangedListener {
 
         void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy);
 

@@ -1,5 +1,7 @@
 package com.goldou.movie.bean;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public class CinemaInfo {
         this.data = data;
     }
 
-    public static class Data {
+    public static class Data implements Comparable {
         /**
          * addr : 中牟县郑州航空港区郑港七路与郑港六街交叉口（山顶时代广场四楼）
          * lat : 34.562
@@ -241,6 +243,11 @@ public class CinemaInfo {
 
         public void setFollow(int follow) {
             this.follow = follow;
+        }
+
+        @Override
+        public int compareTo(@NonNull Object o) {
+            return this.getDistance() - ((Data) o).getDistance();
         }
     }
 }

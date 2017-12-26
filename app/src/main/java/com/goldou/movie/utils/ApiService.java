@@ -1,10 +1,12 @@
 package com.goldou.movie.utils;
 
 import com.goldou.movie.bean.CinemaInfo;
+import com.goldou.movie.bean.MovieDetailInfo;
 import com.goldou.movie.bean.MovieInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -25,4 +27,7 @@ public interface ApiService {
     */
     @GET("movie/list.json")
     Observable<MovieInfo> getMovie(@Query("type") String type, @Query("offset") int offset, @Query("limit") int limit);
+
+    @GET("movie/{movieId}")
+    Observable<MovieDetailInfo> getMovieDetail(@Path("movieId") String movieId);
 }

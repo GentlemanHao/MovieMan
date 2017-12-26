@@ -57,12 +57,10 @@ public class MainActivity extends AppCompatActivity {
             cinemaFragment = new CinemaFragment();
             meFragment = new MeFragment();
 
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, homeFragment, "home")
-                    .add(R.id.fragment_container, movieFragment, "movie")
-                    .add(R.id.fragment_container, cinemaFragment, "cinema")
-                    .add(R.id.fragment_container, meFragment, "me")
-                    .hide(movieFragment).hide(cinemaFragment)
-                    .hide(meFragment).show(homeFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, homeFragment, "home").add(R.id.fragment_container, movieFragment, "movie")
+                    .add(R.id.fragment_container, cinemaFragment, "cinema").add(R.id.fragment_container, meFragment, "me")
+                    .hide(movieFragment).hide(cinemaFragment).hide(meFragment).show(homeFragment).commit();
         }
         fragments = new Fragment[]{homeFragment, movieFragment, cinemaFragment, meFragment};
 

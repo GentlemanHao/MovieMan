@@ -46,6 +46,17 @@ public class CinemaDetailActivity extends AppCompatActivity {
     private CinemaDetailInfo cinemaDetailInfo;
     private int cinemaId;
     private TextView tv_title, tv_name, tv_address;
+    private LinearLayout ll_tag;
+    private RelativeLayout rl_viewPager;
+    private ViewPager viewPager;
+    private List<CinemaDetailInfo.DataBean.MoviesBean> movies;
+    private TextView mv_name, mv_score, mv_var;
+    private RadioGroup rg_date;
+    private RadioButton rb_1, rb_2, rb_3, rb_4;
+    private List<RadioButton> radioButtons;
+    private RecyclerView rl_hall;
+    private Map<String, List<MovieShow>> dateShows;
+    private HallAdapter hallAdapter;
 
     private Handler handler = new Handler() {
         @Override
@@ -64,22 +75,6 @@ public class CinemaDetailActivity extends AppCompatActivity {
             }
         }
     };
-    private LinearLayout ll_tag;
-    private RelativeLayout rl_viewPager;
-    private ViewPager viewPager;
-    private List<CinemaDetailInfo.DataBean.MoviesBean> movies;
-    private TextView mv_name;
-    private TextView mv_score;
-    private TextView mv_var;
-    private RadioGroup rg_date;
-    private RadioButton rb_1;
-    private RadioButton rb_2;
-    private RadioButton rb_3;
-    private RadioButton rb_4;
-    private List<RadioButton> radioButtons;
-    private RecyclerView rl_hall;
-    private Map<String, List<MovieShow>> dateShows;
-    private HallAdapter hallAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +148,6 @@ public class CinemaDetailActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         cinemaDetailInfo = gson.fromJson(json, CinemaDetailInfo.class);
                         getDateShow(json);
-
                         handler.sendEmptyMessage(TextUtils.isEmpty(movieid) ? 1 : 2);
                     }
                 }

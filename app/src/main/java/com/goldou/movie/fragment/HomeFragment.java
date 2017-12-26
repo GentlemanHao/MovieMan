@@ -63,7 +63,6 @@ import okhttp3.Response;
 
 public class HomeFragment extends BaseFragment {
 
-    private int[] imageList;
     private int height;
     private RelativeLayout rl_search;
     private MainActivity mainActivity;
@@ -72,7 +71,6 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView rl_news;
     private NewsInfo newsInfo;
     private HomeAdapter movieAdapter;
-    private NewsAdapter newsAdapter;
     private RecyclerView rl_movie;
     private LinearLayout ll_nomore;
     private SwipeRefreshLayout srl_refresh;
@@ -83,16 +81,12 @@ public class HomeFragment extends BaseFragment {
     private ImageView iv_sing;
     private MediaPlayer mediaPlayer;
     private ViewFlipper viewFlipper;
-    private RelativeLayout rl_banner;
     private BannerView bannerView;
 
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1:
-
-                    break;
                 case 2:
                     showEveryDayInfo();
                     break;
@@ -117,8 +111,8 @@ public class HomeFragment extends BaseFragment {
         TextView tv_hotMovie = (TextView) view.findViewById(R.id.tv_hotMovie);
         tv_hotMovie.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
-        imageList = new int[]{R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5, R.drawable.banner6};
-        rl_banner = (RelativeLayout) view.findViewById(R.id.rl_banner);
+        int[] imageList = new int[]{R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5, R.drawable.banner6};
+        RelativeLayout rl_banner = (RelativeLayout) view.findViewById(R.id.rl_banner);
         bannerView = new BannerView(getActivity(), imageList);
         rl_banner.addView(bannerView.getBannerView());
         bannerView.start();
@@ -130,9 +124,8 @@ public class HomeFragment extends BaseFragment {
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY < 0) {
-                    return;
-                }
+                if (scrollY < 0) return;
+
                 if (scrollY <= height) {
                     float scale = (float) scrollY / height;
                     float alpha = (255 * scale);
@@ -219,7 +212,7 @@ public class HomeFragment extends BaseFragment {
         if (!TextUtils.isEmpty(result)) {
             Gson gson = new Gson();
             newsInfo = gson.fromJson(result, NewsInfo.class);
-            newsAdapter = new NewsAdapter(getActivity(), newsInfo.getData());
+            NewsAdapter newsAdapter = new NewsAdapter(getActivity(), newsInfo.getData());
             rl_news.setAdapter(newsAdapter);
             ll_nomore.setVisibility(View.VISIBLE);
 

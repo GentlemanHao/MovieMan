@@ -7,8 +7,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.Settings;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
@@ -39,33 +37,27 @@ import com.goldou.movie.bean.MovieWant;
 import com.goldou.movie.greendao.DaoMaster;
 import com.goldou.movie.greendao.DaoSession;
 import com.goldou.movie.greendao.MovieWantDao;
-import com.goldou.movie.utils.OkHttpUtil;
+import com.goldou.movie.utils.RetrofitUtil;
 import com.goldou.movie.utils.ShareUtil;
 import com.goldou.movie.view.ObservableScrollView;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
     private int movieId;
     private ImageView iv_bg;
-    private MovieDetailInfo movieDetailInfo;
-    private TextView tv_name;
-    private TextView tv_type;
-    private TextView tv_from;
-    private TextView tv_score;
+    private TextView tv_name, tv_type, tv_from, tv_score;
     private ProgressBar pb_score;
     private TextView tv_population;
     private TextView tv_audience;
@@ -87,18 +79,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView iv_want;
     private MovieWantDao movieWantDao;
     private MovieDetailInfo.Data.MovieDetailModelBean model;
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    showMovieData();
-                    srl_refresh.setRefreshing(false);
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         rl_title.setBackgroundColor(Color.argb(0, 220, 14, 60));
         height = rl_info.getLayoutParams().height - rl_title.getLayoutParams().height;
-        ob_scrollView.setOnScollChangedListener(new ObservableScrollView.OnScollChangedListener() {
+        ob_scrollView.setOnScrollChangedListener(new ObservableScrollView.OnScrollChangedListener() {
             @Override
             public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
                 tv_title_name.setVisibility(View.GONE);
@@ -221,24 +201,19 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        OkHttpUtil.doGet("http://m.maoyan.com/movie/" + movieId + ".json", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    movieDetailInfo = gson.fromJson(response.body().string(), MovieDetailInfo.class);
-                    handler.sendEmptyMessage(1);
-                }
-            }
-        });
+        RetrofitUtil.getInstance().getApiService().getMovieDetail(movieId + ".json")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieDetailInfo>() {
+                    @Override
+                    public void accept(MovieDetailInfo movieDetailInfo) throws Exception {
+                        showMovieData(movieDetailInfo);
+                        srl_refresh.setRefreshing(false);
+                    }
+                });
     }
 
-    private void showMovieData() {
+    private void showMovieData(MovieDetailInfo movieDetailInfo) {
         model = movieDetailInfo.getData().getMovieDetailModel();
         Picasso.with(MovieDetailActivity.this).load(model.getImg()).into(iv_bg);
         tv_name.setText(model.getNm());
