@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -34,6 +33,7 @@ import android.widget.ViewFlipper;
 import com.goldou.movie.R;
 import com.goldou.movie.activity.CityActivity;
 import com.goldou.movie.activity.MainActivity;
+import com.goldou.movie.activity.WeChatCaptureActivity;
 import com.goldou.movie.adapter.HomeAdapter;
 import com.goldou.movie.adapter.NewsAdapter;
 import com.goldou.movie.bean.EveryDayInfo;
@@ -103,13 +103,20 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView(View view) {
+
+        ImageView iv_scan = (ImageView) view.findViewById(R.id.iv_scan);
+        iv_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WeChatCaptureActivity.class);
+                startActivity(intent);
+            }
+        });
+
         rl_movie = (RecyclerView) view.findViewById(R.id.rl_movie);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rl_movie.setLayoutManager(linearLayoutManager);
-
-        TextView tv_hotMovie = (TextView) view.findViewById(R.id.tv_hotMovie);
-        tv_hotMovie.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
         int[] imageList = new int[]{R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4, R.drawable.banner5, R.drawable.banner6};
         RelativeLayout rl_banner = (RelativeLayout) view.findViewById(R.id.rl_banner);

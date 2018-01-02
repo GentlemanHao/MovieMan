@@ -36,7 +36,8 @@ public class SplashActivity extends AppCompatActivity {
         PermissionUtil.requestPermissionsResult(this, 1, new String[]{
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionUtil.OnPermissionListener() {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA}, new PermissionUtil.OnPermissionListener() {
             @Override
             public void onPermissionGranted() {
                 handler.sendEmptyMessageDelayed(0, 2000);

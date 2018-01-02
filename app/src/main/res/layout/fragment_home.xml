@@ -41,7 +41,8 @@
                         android:layout_marginTop="10dp"
                         android:text="正在热映"
                         android:textColor="@color/colorBig"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_all"
@@ -164,6 +165,15 @@
                         android:text="找影剧人、影人、影院"
                         android:textColor="#8a8a8a"
                         android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_scan"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/icon_scan" />
 
                 </RelativeLayout>
 
