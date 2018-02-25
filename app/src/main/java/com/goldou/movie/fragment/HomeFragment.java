@@ -161,7 +161,7 @@ public class HomeFragment extends BaseFragment {
         });
         tv_city.setText(SpUtil.getString(getContext(), "CITY", ""));
         mainActivity = (MainActivity) getActivity();
-        registerBoradcastReceiver();
+        registerBroadcastReceiver();
 
         loadingView = (LoadingView) view.findViewById(R.id.loadingView);
 
@@ -364,10 +364,10 @@ public class HomeFragment extends BaseFragment {
         }
     };
 
-    public void registerBoradcastReceiver() {
-        IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction("com.goldou.location");
-        mainActivity.registerReceiver(locationReceiver, myIntentFilter);
+    public void registerBroadcastReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.goldou.location");
+        mainActivity.registerReceiver(locationReceiver, intentFilter);
     }
 
     @Override
