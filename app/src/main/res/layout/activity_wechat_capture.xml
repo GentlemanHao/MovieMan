@@ -17,6 +17,14 @@
             android:padding="12dp"
             android:src="@drawable/icon_back" />
 
+        <ImageView
+            android:id="@+id/iv_code"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:src="@drawable/icon_qrcode" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,16 +37,63 @@
 
     </RelativeLayout>
 
-    <SurfaceView
-        android:id="@+id/preview_view"
+    <RelativeLayout
+        android:id="@+id/rl_scan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_title" />
+        android:layout_below="@id/rl_title">
 
-    <com.google.zxing.client.android.AutoScannerView
-        android:id="@+id/autoscanner_view"
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.zxing.client.android.AutoScannerView
+            android:id="@+id/autoscanner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_code"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rl_title" />
+        android:layout_below="@id/rl_title"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:src="@drawable/icon_qrcode_black" />
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_below="@id/iv_result"
+            android:layout_marginBottom="36dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/editbg_gary"
+            android:hint="请输入内容"
+            android:paddingLeft="20dp" />
+
+        <Button
+            android:id="@+id/bt_code"
+            android:layout_width="200dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/et_code"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_bg_red"
+            android:text="生成二维码"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

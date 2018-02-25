@@ -2,12 +2,17 @@ package com.goldou.movie.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.goldou.movie.R;
+import com.goldou.movie.utils.QRCodeUtil;
 import com.google.zxing.Result;
 import com.google.zxing.client.android.AutoScannerView;
 import com.google.zxing.client.android.BaseCaptureActivity;
@@ -17,10 +22,14 @@ import com.google.zxing.client.android.BaseCaptureActivity;
  */
 public class WeChatCaptureActivity extends BaseCaptureActivity implements View.OnClickListener {
 
-    private static final String TAG = WeChatCaptureActivity.class.getSimpleName();
-
     private SurfaceView surfaceView;
     private AutoScannerView autoScannerView;
+    private boolean isScan = true;
+    private ImageView iv_code;
+    private RelativeLayout rl_scan;
+    private RelativeLayout rl_code;
+    private ImageView iv_result;
+    private EditText et_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +38,20 @@ public class WeChatCaptureActivity extends BaseCaptureActivity implements View.O
         surfaceView = (SurfaceView) findViewById(R.id.preview_view);
         autoScannerView = (AutoScannerView) findViewById(R.id.autoscanner_view);
 
+        initView();
+    }
+
+    private void initView() {
+        rl_scan = (RelativeLayout) findViewById(R.id.rl_scan);
+        rl_code = (RelativeLayout) findViewById(R.id.rl_code);
         ImageView iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_code = (ImageView) findViewById(R.id.iv_code);
         iv_back.setOnClickListener(this);
+        iv_code.setOnClickListener(this);
+        iv_result = (ImageView) findViewById(R.id.iv_result);
+        et_code = (EditText) findViewById(R.id.et_code);
+        Button bt_code = (Button) findViewById(R.id.bt_code);
+        bt_code.setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +80,28 @@ public class WeChatCaptureActivity extends BaseCaptureActivity implements View.O
             case R.id.iv_back:
                 finish();
                 break;
+            case R.id.iv_code:
+                isScan = !isScan;
+                iv_code.setImageResource(isScan ? R.drawable.icon_qrcode : R.drawable.icon_scan_big);
+                rl_scan.setVisibility(isScan ? View.VISIBLE : View.GONE);
+                rl_code.setVisibility(isScan ? View.GONE : View.VISIBLE);
+                if (isScan) {
+                    reScan();
+                } else {
+                    iv_result.setImageResource(R.drawable.icon_qrcode_black);
+                    et_code.setText("");
+                }
+                break;
+            case R.id.bt_code:
+                createCodeImage();
+                break;
+        }
+    }
+
+    private void createCodeImage() {
+        String content = et_code.getText().toString();
+        if (!TextUtils.isEmpty(content)) {
+            iv_result.setImageBitmap(QRCodeUtil.encodeAsBitmap(content));
         }
     }
 }
