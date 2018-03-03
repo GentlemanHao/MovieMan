@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.goldou.movie.R;
+import com.goldou.movie.bean.NewsInfo;
 import com.goldou.movie.utils.PicassoUtil;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/3 0003.
@@ -17,11 +21,11 @@ import com.goldou.movie.utils.PicassoUtil;
 public class PosterAdapter extends RecyclerView.Adapter {
 
     private Context context;
-    private String[] images;
+    private List<NewsInfo.Data> list;
 
-    public PosterAdapter(Context context, String[] images) {
+    public PosterAdapter(Context context, List<NewsInfo.Data> list) {
         this.context = context;
-        this.images = images;
+        this.list = list;
     }
 
     @Override
@@ -33,24 +37,25 @@ public class PosterAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            ViewGroup.LayoutParams layoutParams = ((ViewHolder) holder).iv_poster.getLayoutParams();
-
-            PicassoUtil.loadRound(context, images[position], ((ViewHolder) holder).iv_poster, 12);
+            PicassoUtil.loadRound(context, list.get(position).getArticle_image(), ((ViewHolder) holder).iv_poster, 12);
+            ((ViewHolder) holder).tv_content.setText(list.get(position).getArticle_title());
         }
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return list.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView iv_poster;
+        private TextView tv_content;
 
         public ViewHolder(View itemView) {
             super(itemView);
             iv_poster = (ImageView) itemView.findViewById(R.id.iv_poster);
+            tv_content = (TextView) itemView.findViewById(R.id.tv_content);
         }
     }
 }

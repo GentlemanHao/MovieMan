@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     app:cardCornerRadius="6dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_poster"
+            android:lineSpacingMultiplier="1.2"
             android:padding="8dp"
-            android:text="电影人APP电影人APP电影人APP电影人APP电影人APP电影人APP电影人APP电影人APP电影人APP" />
+            android:textColor="@color/colorGray2" />
 
     </RelativeLayout>
 
