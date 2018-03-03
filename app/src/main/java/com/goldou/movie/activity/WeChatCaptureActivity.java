@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.goldou.movie.R;
+import com.goldou.movie.utils.BitmapUtil;
+import com.goldou.movie.utils.BottomChoseDialog;
 import com.goldou.movie.utils.QRCodeUtil;
 import com.google.zxing.Result;
 import com.google.zxing.client.android.AutoScannerView;
@@ -60,11 +62,11 @@ public class WeChatCaptureActivity extends BaseCaptureActivity implements View.O
         autoScannerView.setCameraManager(cameraManager);
     }
 
-
     @Override
     public SurfaceView getSurfaceView() {
         return (surfaceView == null) ? (SurfaceView) findViewById(R.id.preview_view) : surfaceView;
     }
+
 
     @Override
     public void dealDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
@@ -99,9 +101,26 @@ public class WeChatCaptureActivity extends BaseCaptureActivity implements View.O
     }
 
     private void createCodeImage() {
-        String content = et_code.getText().toString();
+        final String content = et_code.getText().toString();
         if (!TextUtils.isEmpty(content)) {
-            iv_result.setImageBitmap(QRCodeUtil.encodeAsBitmap(content));
+            final Bitmap bitmap = QRCodeUtil.encodeAsBitmap(content);
+            iv_result.setImageBitmap(bitmap);
+            iv_result.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    showSaveImg(content, bitmap);
+                    return true;
+                }
+            });
         }
+    }
+
+    private void showSaveImg(final String content, final Bitmap bitmap) {
+        BottomChoseDialog.show(WeChatCaptureActivity.this, new BottomChoseDialog.OnItemClickListener() {
+            @Override
+            public void onItemClick(int item) {
+                BitmapUtil.saveBitmap2Image(content, bitmap);
+            }
+        }, "保存图片");
     }
 }

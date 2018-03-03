@@ -25,7 +25,7 @@ public class RetrofitUtil {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .cache(new Cache(new File(Environment.getExternalStorageDirectory() + "/MoviewMan"), 1024 * 1024 * 8))
+                .cache(new Cache(new File(Environment.getExternalStorageDirectory() + "/MovieMan"), 1024 * 1024 * 8))
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://m.maoyan.com/")

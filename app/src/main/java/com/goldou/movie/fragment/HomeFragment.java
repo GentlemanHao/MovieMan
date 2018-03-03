@@ -48,6 +48,7 @@ import com.goldou.movie.view.LoadingView;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -205,8 +206,6 @@ public class HomeFragment extends BaseFragment {
                 });
     }
 
-    private boolean isShowEveryDay = true;
-
     private void initNews() {
         Scanner scanner = null;
         try {
@@ -232,8 +231,9 @@ public class HomeFragment extends BaseFragment {
 
             initAd();
 
-            if (isShowEveryDay) {
-                isShowEveryDay = false;
+            Random random = new Random();
+            int num = random.nextInt(100);
+            if (num % 5 == 0) {
                 getEveryDayEnglish();
             }
         }
