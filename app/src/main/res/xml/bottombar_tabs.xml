@@ -13,6 +13,10 @@
         id="@+id/tab_cinema"
         title="影院" />
     <tab
+        icon="@mipmap/ic_show"
+        id="@+id/tab_show"
+        title="演出" />
+    <tab
         icon="@mipmap/ic_me"
         id="@+id/tab_me"
         title="我的" />

@@ -68,8 +68,6 @@ public class BannerView {
                 position = position % images.length;
                 params.leftMargin = (int) (dip2px(pointWidth + pointDistance) * position + dip2px(pointWidth + pointDistance) * positionOffset);
                 move_point.setLayoutParams(params);
-                System.out.println("position：" + position);
-                System.out.println("--------positionOffset：" + positionOffset);
             }
 
             @Override

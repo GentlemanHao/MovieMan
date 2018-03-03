@@ -15,6 +15,7 @@ import com.goldou.movie.fragment.CinemaFragment;
 import com.goldou.movie.fragment.HomeFragment;
 import com.goldou.movie.fragment.MeFragment;
 import com.goldou.movie.fragment.MovieFragment;
+import com.goldou.movie.fragment.ShowFragment;
 import com.goldou.movie.utils.SpUtil;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment;
     private MovieFragment movieFragment;
     private CinemaFragment cinemaFragment;
+    private ShowFragment showFragment;
     private MeFragment meFragment;
     private Fragment[] fragments;
     private int currentTabId;
@@ -47,22 +49,25 @@ public class MainActivity extends AppCompatActivity {
             homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("home");
             movieFragment = (MovieFragment) getSupportFragmentManager().findFragmentByTag("movie");
             cinemaFragment = (CinemaFragment) getSupportFragmentManager().findFragmentByTag("cinema");
+            showFragment = (ShowFragment) getSupportFragmentManager().findFragmentByTag("show");
             meFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag("me");
 
             getSupportFragmentManager().beginTransaction().hide(movieFragment).hide(cinemaFragment)
-                    .hide(meFragment).show(homeFragment).commit();
+                    .hide(showFragment).hide(meFragment).show(homeFragment).commit();
         } else {
             homeFragment = new HomeFragment();
             movieFragment = new MovieFragment();
             cinemaFragment = new CinemaFragment();
+            showFragment = new ShowFragment();
             meFragment = new MeFragment();
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, homeFragment, "home").add(R.id.fragment_container, movieFragment, "movie")
-                    .add(R.id.fragment_container, cinemaFragment, "cinema").add(R.id.fragment_container, meFragment, "me")
-                    .hide(movieFragment).hide(cinemaFragment).hide(meFragment).show(homeFragment).commit();
+                    .add(R.id.fragment_container, cinemaFragment, "cinema").add(R.id.fragment_container, showFragment, "show")
+                    .add(R.id.fragment_container, meFragment, "me").hide(movieFragment).hide(cinemaFragment).hide(showFragment)
+                    .hide(meFragment).show(homeFragment).commit();
         }
-        fragments = new Fragment[]{homeFragment, movieFragment, cinemaFragment, meFragment};
+        fragments = new Fragment[]{homeFragment, movieFragment, cinemaFragment, showFragment, meFragment};
 
         initView();
     }
@@ -83,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.tab_cinema:
                         tabId = 2;
                         break;
-                    case R.id.tab_me:
+                    case R.id.tab_show:
                         tabId = 3;
+                        break;
+                    case R.id.tab_me:
+                        tabId = 4;
                         break;
                 }
                 if (currentTabId != tabId) {
